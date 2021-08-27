@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     addItem() {
+      console.log('button clicked')
       this.items.push({ title: `Product ${this.items.length + 1}`, imageUrl: 'https://via.placeholder.com/400' })
     },
     select(item) {

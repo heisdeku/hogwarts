@@ -1,53 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
+const Header = () => {
+  const [ itemsSelected, setItemsSelected ] = useState(0)
+  const [ item, setItem ] = useState(null)
+  const [ links, setLinks ] = useState([
+    {
+      url: 'https://www.hnginternship.com/',
+      text: 'Home'
+    },
+    {
+      url: 'https://github.com/airbnb/hypernova',
+      text: 'Powered by hypernova & frontend magic'
+    },
+    {
+      url: 'https://github.com/heisdeku',
+      text: 'Bootstrapped by Deku.'
+    }
+  ])
+  useEffect(() => {
+    document.addEventListener('itemSelected', itemSelected);
+    return () => {
+      document.removeEventListener('itemSelected', itemSelected);
+    }
+  })
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemsSelected: 0,
-      item: null,
-    };
-    this.itemSelected = this.itemSelected.bind(this);
+  const itemSelected = ({ detail: item }) => {    
+    setItemsSelected(prev => prev + 1)
+    setItem(item)
+    //this.setState({ itemsSelected: itemsSelected + 1, item });
   }
-
-  componentDidMount() {
-    document.addEventListener('itemSelected', this.itemSelected);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('itemSelected', this.itemSelected);
-  }
-
-  itemSelected({ detail: item }) {
-    const { itemsSelected } = this.state;
-    this.setState({ itemsSelected: itemsSelected + 1, item });
-  }
-
-  render() {
-    const { title, links } = this.props;
-    const { itemsSelected, item } = this.state;
-    return (
-      <header className="k-header">
-        <div className="k-header__brand">{title}</div>
-        { item && <span className="k-header__last-item">{`Last Item: ${item.title}`}</span> }
-        <span className="k-header__space" />
-        <span>{`Items Clicked: ${itemsSelected}`}</span>
-        <NavBar links={links} />
-      </header>
-    );
-  }
+  return (
+    <header className="k-header">
+      <div className="k-header__brand">ChekCart</div>
+      { item && <span className="k-header__last-item">{`Last Item: ${item.title}`}</span> }
+      <span className="k-header__space" />
+      <span>{`Items Clicked: ${itemsSelected}`}</span>
+      <NavBar links={links} />
+    </header>
+  );
 }
 
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  links: NavBar.propTypes.links,
-};
-
-Header.defaultProps = {
-  links: [],
-};
 
 export default Header;

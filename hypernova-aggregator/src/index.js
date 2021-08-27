@@ -17,12 +17,14 @@ app.get('/', async (req, res) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Document</title>
+      <title>ChekCart</title>
       <link rel="stylesheet" href="/style.css">
     </head>
     <body>
       ${header.html}
+      <main class="plugin_area">
       ${content.html}
+      </main>      
       <script src="http://localhost:3031/client.js"></script>
       <script src="http://localhost:3030/client.js"></script>
     </body>
@@ -32,4 +34,4 @@ app.get('/', async (req, res) => {
   return res.send(html)
 })
 
-app.listen(process.env.PORT || 8080, () => console.log('Aggregator Running'))
+app.listen(8080, () => console.log('Microfrontend Services Running'))

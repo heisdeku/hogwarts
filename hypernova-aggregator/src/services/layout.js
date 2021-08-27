@@ -1,22 +1,20 @@
 
 const axios = require('axios')
+/*
+module.exports.getLayout = () => {
+  return axios.get('http://0.0.0.0:3031/')
+    .then(({ data }) => {
+      return data.results
+    })
+}
+*/
 
 module.exports.getLayout = () => {
-  return axios.post('http://0.0.0.0:3031/batch', {
+  return axios.post('http://0.0.0.0:3031/main', {
     header: {
-      name: 'Header',
+      name: 'App',
       data: {
-        title: 'Wizeline',
-        links: [
-          {
-            url: 'https://www.wizeline.com/',
-            text: 'Home'
-          },
-          {
-            url: 'https://github.com/airbnb/hypernova',
-            text: 'Hypernova'
-          }
-        ]
+        title: 'Chekcart',      
       }
     }
   })
